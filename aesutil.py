@@ -1,23 +1,17 @@
-'''
-AESUtil object.  AES wrapper that handles padding.
-'''
-
-__module__     = 'aesutil.py'
-__author__     = 'Rob Mitchell'
-__maintainer__ = 'Rob Mitchell'
-__email__      = 'rlmitchell@gmail.com'
-__version__    = '1.0.1'
-__status__     = 'personal use release'
-
 import os
 import binascii
 import struct
 from Crypto.Cipher import AES
 
-
 class AESUtil(object):
-    __version__ = '1.0.1'
+    __module__       = 'aes-service/aesutil.py'
+    __author__       = 'Rob Mitchell'
+    __maintainer__   = 'Rob Mitchell'
+    __email__        = 'rlmitchell@gmail.com'
+    __version__      = '1.0.1'
     __version_date__ = '2020.06.06.1539ct'
+    __status__       = 'personal use release'
+    __description__  = 'AES wrapper that handles padding.'
 
     def __init__(self,key=None):
         self.key = self.check_key(key)
