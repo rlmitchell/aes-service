@@ -36,7 +36,7 @@ class App(object):
         return json_out
 
     def getkey(self):
-        return requests.get(self.config['KeyService']['url']+'/rlm.aes.key').content.rstrip()
+        return requests.get(self.config['KeyService']['url']+'/'+self.config['KeyService']['key']).content.rstrip()
 		
 
 
