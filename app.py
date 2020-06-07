@@ -18,26 +18,25 @@ class App(object):
 
     def __init__(self):
         self.config = Config.get_parser('app.ini')
+        aes = AESUtil(self.getkey())
 
-        @cherrypy.expose
-        @cherrypy.tools.json_out()
-        @cherrypy.tools.json_in()
-        def process(self):
-            aes = AESUtil(self.getkey())
-            json_in = cherrypy.request.json
-            json_in['text'] = base64.b64decode(json_in['text'])
-            json_out = {}
-            json_out['version'] = self.version
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    @cherrypy.tools.json_in()
+    def process(self):
+        json_in = cherrypy.request.json
+        json_in['text'] = base64.b64decode(json_in['text'])
+        json_out = {}
+        json_out['version'] = self.version
 
-            if json_in['action'] == 'encrypt':
-                json_out['text'] = base64.b64encode(aes.encrypt(json_in['text']))
-            else:
-                json_out['text'] = base64.b64encode(aes.decrypt(json_in['text']))
+        if json_in['action'] == 'encrypt':
+            json_out['text'] = base64.b64encode(aes.encrypt(json_in['text']))
+        else:
+            json_out['text'] = base64.b64encode(aes.decrypt(json_in['text']))
+        return json_out
 
-            return json_out
-
-        def getkey(self):
-            return requests.get(self.config['KeyService']['url']+'/rlm.aes.key').content.rstrip()
+    def getkey(self):
+        return requests.get(self.config['KeyService']['url']+'/rlm.aes.key').content.rstrip()
 		
 
 
